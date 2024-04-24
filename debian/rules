@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+export PYBUILD_NAME=execnet
+export PYBUILD_AFTER_INSTALL=PYTHONPATH={destdir}/{install_dir} http_proxy='127.0.0.1:9' {interpreter} -m sphinx -b html -N doc/ debian/execnet-doc/usr/share/doc/execnet-doc/html/
+
+%:
+	dh $@ --buildsystem=pybuild --with python3,sphinxdoc
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG.rst
